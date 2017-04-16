@@ -1,0 +1,7 @@
+{
+  "name": "heatmap-parser",
+  "dependencies": {
+    "csvtojson": "^1.1.4",
+    "node-fs": "^0.1.7"
+  }
+}
