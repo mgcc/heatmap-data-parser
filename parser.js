@@ -1,7 +1,24 @@
 var c2j = require('csvtojson')
 var processor = require('./lib/process')
 
-var files = ['ICALABAR18']
+var files = [
+  'IBICOLGU2',
+  'ICAGAYAN2',
+  'ICAGAYAN3',
+  'ICALABAR18',
+  'ICALABAR25',
+  'ICENTRAL91',
+  'ICENTRAL94',
+  'IDAVAORE19',
+  'IMIMAROP6',
+  'IMIMAROP7',
+  'IMIMAROP8',
+  'INORTHER117',
+  'INORTHER86',
+  'IWESTERN596',
+  'IWESTERN635',
+  'IZAMBOAN4'
+]
 
 var file = 'data/sample.csv'
 
@@ -42,7 +59,7 @@ var readFiles = function(files) {
 
         var fs = require('node-fs')
 
-        fs.writeFile('data/' + element + '.txt', output, function(err) {
+        fs.writeFile('output/' + element + '.txt', output, function(err) {
           if (err) {
             console.log(err)
           } else {
@@ -50,7 +67,6 @@ var readFiles = function(files) {
           }
         })
       }
-      console.log('Done')
     })
   })
 }
