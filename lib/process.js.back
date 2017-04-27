@@ -65,63 +65,6 @@ var addEntry = function(sb, stationID, year, monthNum, date, e, dummy) {
   return sb
 }
 
-var pad = function(num, size) {
-    var s = num+"";
-    while (s.length < size) s = "0" + s;
-    return s;
-}
-
-var getStationIndex = function(stationID) {
-  var stations = [
-    'IAMBOAN4',
-    'IBICOLGU2',
-    'ICAGAYAN2',
-    'ICAGAYAN3',
-    'ICALABAR18',
-    'ICALABAR25',
-    'ICENTRAL91',
-    'ICENTRAL94',
-    'IDAVAORE19',
-    'IMIMAROP6',
-    'IMIMAROP7',
-    'IMIMAROP8',
-    'INORTHER86',
-    'INORTHER117',
-    'IWESTERN596',
-    'IWESTERN635']
-
-    var i = null
-
-    stations.forEach((element, index) => {
-      if (element == stationID) {
-        i = index
-      }
-    })
-
-    return i
-}
-
-var addHeatmapEntry = function(sb, stationID, year, monthNum, date, e, dummy) {
-  sb.append(year)
-  sb.append('-')
-  sb.append(pad(monthNum, 2))
-  sb.append('-')
-  sb.append(pad(date, 2))
-  sb.append(',')
-  if (getStationIndex(stationID) == 0) {
-    sb.append('0')
-  } else {
-    sb.append(getStationIndex(stationID))
-  }
-  sb.append(',')
-  sb.append(e.tempAvg.substring(0, e.tempAvg.length - 3))
-
-  sb.append('\n')
-
-
-  return sb
-}
-
 module.exports = function(stationID, data) {
   var year = 2016
   var month = 'Jan'
@@ -141,6 +84,7 @@ module.exports = function(stationID, data) {
     } else if (e.date == '2017') {
       year = 2017
     } else if (parseInt(e.date) > 0 && parseInt(e.date) < 32) {
+      console.log(e)
       var dateFromFile = parseInt(e.date)
 
       //Advance date if there are missing entries
@@ -148,14 +92,14 @@ module.exports = function(stationID, data) {
         // console.log('Missing entry on ' + month + ' ' + date)
 
         //Create dummy entry
-        sb = addHeatmapEntry(sb, stationID, year, monthNum, date, {tempHigh: '0   ', tempAvg: '0   ', tempLow: '0   ', rain: '0   '}, true)
+        sb = addEntry(sb, stationID, year, monthNum, date, {tempHigh: '-274   ', tempAvg: '-274   ', tempLow: '-274   ', rain: '0   '}, true)
         date++
       }
 
       // console.log('Found entry for ' + month + ' ' + date)
 
       //Create real entry
-      sb = addHeatmapEntry(sb, stationID, year, monthNum, date, e, false)
+      sb = addEntry(sb, stationID, year, monthNum, date, e, false)
 
       date++
     }
